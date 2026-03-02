@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/pavelk/.openclaw/logs/**)",
+      "Bash(./scripts/clawlog.sh --last 5m)",
+      "Bash(log show --predicate 'subsystem == \"\"ai.openclaw\"\"' --last 5m --style compact)",
+      "Read(//tmp/**)",
+      "Read(//Users/pavelk/.openclaw/agents/**)"
+    ]
+  }
+}
