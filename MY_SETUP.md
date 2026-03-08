@@ -188,7 +188,10 @@ curl http://localhost:9876/v1/audio/transcriptions \
   -F "file=@test.ogg" -F "model=whisper-1" -F "language=ru"
 ```
 
-**Python:** используется `calendarsync/.venv/bin/python3` (там установлен `faster-whisper`)
+**Python:** используется общий `~/.virtualenvs/shared-python` (в т.ч. для `faster-whisper`).
+LaunchAgent запускает Whisper через:
+
+`~/.virtualenvs/shared-python/bin/python /Users/pavelk/Documents/GitHub/openclaw/scripts/whisper-server.py 9876`
 
 ---
 

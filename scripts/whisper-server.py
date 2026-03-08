@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Локальный Whisper API сервер, совместимый с OpenAI /v1/audio/transcriptions."""
 
-import sys
-import os
-import tempfile
 import json
-from http.server import HTTPServer, BaseHTTPRequestHandler
+import os
+import sys
+import tempfile
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
 _model = None
 
@@ -14,6 +14,7 @@ def get_model():
     global _model
     if _model is None:
         from faster_whisper import WhisperModel
+
         print("Загрузка модели whisper base...")
         _model = WhisperModel("medium", device="cpu", compute_type="int8")
         print("Модель загружена!")
@@ -38,7 +39,7 @@ def parse_multipart(rfile, content_type):
         if header_end == -1:
             continue
         header = part[:header_end].decode(errors="replace")
-        body = part[header_end + 4:]
+        body = part[header_end + 4 :]
         if body.endswith(b"\r\n"):
             body = body[:-2]
 

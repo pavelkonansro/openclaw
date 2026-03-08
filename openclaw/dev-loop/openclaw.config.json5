@@ -1,0 +1,23 @@
+{
+  // Merge into ~/.openclaw/openclaw.json
+  plugins: {
+    entries: {
+      lobster: { enabled: true },
+    },
+  },
+  tools: {
+    alsoAllow: ["lobster"],
+  },
+  agents: {
+    list: [
+      {
+        id: "architect",
+        tools: { alsoAllow: ["lobster"] },
+      },
+      {
+        id: "builder",
+        tools: { alsoAllow: ["lobster"] },
+      },
+    ],
+  },
+}

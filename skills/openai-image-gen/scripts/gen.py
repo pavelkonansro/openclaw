@@ -207,17 +207,12 @@ def request_images(
 
 
 def write_gallery(out_dir: Path, items: list[dict]) -> None:
-    thumbs = "\n".join(
-        [
-            f"""
+    thumbs = "\n".join([f"""
 <figure>
   <a href="{html_escape(it["file"], quote=True)}"><img src="{html_escape(it["file"], quote=True)}" loading="lazy" /></a>
   <figcaption>{html_escape(it["prompt"])}</figcaption>
 </figure>
-""".strip()
-            for it in items
-        ]
-    )
+""".strip() for it in items])
     html = f"""<!doctype html>
 <meta charset="utf-8" />
 <title>openai-image-gen</title>
@@ -242,15 +237,39 @@ def write_gallery(out_dir: Path, items: list[dict]) -> None:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Generate images via OpenAI Images API.")
-    ap.add_argument("--prompt", help="Single prompt. If omitted, random prompts are generated.")
+    ap.add_argument(
+        "--prompt", help="Single prompt. If omitted, random prompts are generated."
+    )
     ap.add_argument("--count", type=int, default=8, help="How many images to generate.")
     ap.add_argument("--model", default="gpt-image-1", help="Image model id.")
-    ap.add_argument("--size", default="", help="Image size (e.g. 1024x1024, 1536x1024). Defaults based on model if not specified.")
-    ap.add_argument("--quality", default="", help="Image quality (e.g. high, standard). Defaults based on model if not specified.")
-    ap.add_argument("--background", default="", help="Background transparency (GPT models only): transparent, opaque, or auto.")
-    ap.add_argument("--output-format", default="", help="Output format (GPT models only): png, jpeg, or webp.")
-    ap.add_argument("--style", default="", help="Image style (dall-e-3 only): vivid or natural.")
-    ap.add_argument("--out-dir", default="", help="Output directory (default: ./tmp/openai-image-gen-<ts>).")
+    ap.add_argument(
+        "--size",
+        default="",
+        help="Image size (e.g. 1024x1024, 1536x1024). Defaults based on model if not specified.",
+    )
+    ap.add_argument(
+        "--quality",
+        default="",
+        help="Image quality (e.g. high, standard). Defaults based on model if not specified.",
+    )
+    ap.add_argument(
+        "--background",
+        default="",
+        help="Background transparency (GPT models only): transparent, opaque, or auto.",
+    )
+    ap.add_argument(
+        "--output-format",
+        default="",
+        help="Output format (GPT models only): png, jpeg, or webp.",
+    )
+    ap.add_argument(
+        "--style", default="", help="Image style (dall-e-3 only): vivid or natural."
+    )
+    ap.add_argument(
+        "--out-dir",
+        default="",
+        help="Output directory (default: ./tmp/openai-image-gen-<ts>).",
+    )
     args = ap.parse_args()
 
     api_key = (os.environ.get("OPENAI_API_KEY") or "").strip()
@@ -265,7 +284,10 @@ def main() -> int:
 
     count = args.count
     if args.model == "dall-e-3" and count > 1:
-        print(f"Warning: dall-e-3 only supports generating 1 image at a time. Reducing count from {count} to 1.", file=sys.stderr)
+        print(
+            f"Warning: dall-e-3 only supports generating 1 image at a time. Reducing count from {count} to 1.",
+            file=sys.stderr,
+        )
         count = 1
 
     out_dir = Path(args.out_dir).expanduser() if args.out_dir else default_out_dir()
@@ -314,7 +336,9 @@ def main() -> int:
             try:
                 urllib.request.urlretrieve(image_url, filepath)
             except urllib.error.URLError as e:
-                raise RuntimeError(f"Failed to download image from {image_url}: {e}") from e
+                raise RuntimeError(
+                    f"Failed to download image from {image_url}: {e}"
+                ) from e
 
         items.append({"prompt": prompt, "file": filename})
 

@@ -1,0 +1,28 @@
+
+============================================================
+Python checks
+============================================================
+[python] activated shared env: /Users/pavelk/.virtualenvs/shared-python
+[python] interpreter: /Users/pavelk/.virtualenvs/shared-python/bin/python
+[python] pytest
+============================= test session starts ==============================
+platform darwin -- Python 3.12.4, pytest-9.0.2, pluggy-1.6.0
+rootdir: /Users/pavelk/Documents/GitHub/openclaw
+configfile: pyproject.toml
+testpaths: skills
+plugins: anyio-4.12.1, cov-7.0.0
+collected 16 items
+
+skills/model-usage/scripts/test_model_usage.py ...                       [ 18%]
+skills/openai-image-gen/scripts/test_gen.py ....                         [ 43%]
+skills/skill-creator/scripts/test_package_skill.py ......                [ 81%]
+skills/skill-creator/scripts/test_quick_validate.py ...                  [100%]
+
+============================== 16 passed in 0.08s ==============================
+[python] ruff check .
+All checks passed!
+[python] black --check .
+would reformat /Users/pavelk/Documents/GitHub/openclaw/tests/test_pipeline_report.py
+
+Oh no! 💥 💔 💥
+1 file would be reformatted, 12 files would be left unchanged.

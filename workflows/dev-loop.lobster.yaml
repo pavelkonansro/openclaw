@@ -1,0 +1,20 @@
+name: dev-loop
+args:
+  task:
+    default: ""
+  max_iterations:
+    default: 5
+env:
+  TASK: $args.task
+  MAX_ITERATIONS: $args.max_iterations
+steps:
+  - id: planner
+    command: "echo Planner step initialized for task: $TASK"
+  - id: implementer
+    command: "echo Implementer step initialized"
+  - id: testwriter
+    command: "echo TestWriter step initialized"
+  - id: runner
+    command: "bash ./scripts/dev-loop-runner.sh \"$TASK\" \"$MAX_ITERATIONS\""
+  - id: fixer
+    command: "echo Fixer is handled iteratively inside scripts/dev-loop-runner.sh"

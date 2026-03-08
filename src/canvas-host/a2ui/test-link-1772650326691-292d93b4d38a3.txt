@@ -1,0 +1,1 @@
+/Users/pavelk/Documents/GitHub/openclaw/package.json
